@@ -18,25 +18,31 @@ import java.time.LocalDate;
 public class ViagemTuristica {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_viagem")
+    @SequenceGenerator(
+            name = "seq_viagem",
+            sequenceName = "SEQ_VIAGEM",
+            allocationSize = 1
+    )
+    @Column(name = "ID_VIAGEM")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "habitante_id", nullable = false)
+    @JoinColumn(name = "ID_HABITANTE", nullable = false)
     private Habitante habitante;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "colonia_id", nullable = false)
+    @JoinColumn(name = "ID_COLONIA", nullable = false)
     private Colonia colonia;
 
-    @Column(nullable = false)
+    @Column(name = "DATA_PARTIDA",nullable = false)
     private LocalDate dataPartida;
 
-    @Column(nullable = false)
+    @Column(name = "DATA_RETORNO",nullable = false)
     private LocalDate dataRetorno;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "STATUS_VIAGEM",nullable = false)
     private StatusViagem statusViagem;
 
     @Column(nullable = false, precision = 14, scale = 2)

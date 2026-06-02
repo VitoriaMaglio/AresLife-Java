@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,15 +19,21 @@ import java.util.List;
 public class Recurso {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_recurso")
+    @SequenceGenerator(
+            name = "seq_recurso",
+            sequenceName = "SEQ_RECURSO",
+            allocationSize = 1
+    )
+    @Column(name = "ID_RECURSO")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "colonia_id", nullable = false)
+    @JoinColumn(name = "ID_COLONIA", nullable = false)
     private Colonia colonia;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "TIPO_RECURSO",nullable = false)
     private TipoRecurso tipoRecurso;
 
     @Column(nullable = false, precision = 10, scale = 2)
@@ -35,14 +42,14 @@ public class Recurso {
     @Column(nullable = false)
     private String unidade;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name = "NIVEL_CRITICO",nullable = false, precision = 10, scale = 2)
     private BigDecimal nivelCritico;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name = "NIVEL_MAXIMO",nullable = false, precision = 10, scale = 2)
     private BigDecimal nivelMaximo;
 
-    @Column(nullable = false)
-    private LocalDateTime dataAtualizacao;
+    @Column(name = "DATA_ATUALIZACAO",nullable = false)
+    private LocalDate dataAtualizacao;
 
     @OneToMany(mappedBy = "recurso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MonitoramentoRecurso> monitoramentos;

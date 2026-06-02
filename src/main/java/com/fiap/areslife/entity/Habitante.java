@@ -4,9 +4,7 @@ import com.fiap.areslife.enums.StatusHabitante;
 import com.fiap.areslife.enums.TipoHabitante;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.Table;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,11 +20,17 @@ import java.util.List;
 public class Habitante {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_habitante")
+    @SequenceGenerator(
+            name = "seq_habitante",
+            sequenceName = "SEQ_HABITANTE",
+            allocationSize = 1
+    )
+    @Column(name = "ID_HABITANTE")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "colonia_id", nullable = false)
+    @JoinColumn(name = "ID_COLONIA", nullable = false)
     private Colonia colonia;
 
     @Column(nullable = false)
@@ -39,9 +43,9 @@ public class Habitante {
     @Column(nullable = false)
     private String nacionalidade;
 
-    @Column(nullable = false)
+    @Column(nullable = false,name = "DATA_CHEGADA")
     private LocalDate dataChegada;
-
+    @Column(name = "DATA_SAIDA")
     private LocalDate dataSaida;
 
     @Enumerated(EnumType.STRING)

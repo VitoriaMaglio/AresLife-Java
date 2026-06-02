@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class RecursoService {
                 .unidade(request.unidade())
                 .nivelCritico(request.nivelCritico())
                 .nivelMaximo(request.nivelMaximo())
-                .dataAtualizacao(LocalDateTime.now())
+                .dataAtualizacao(LocalDate.now())
                 .build();
 
         return recursoRepository.save(recurso);
@@ -74,7 +75,7 @@ public class RecursoService {
         }
 
         recurso.setQuantidade(novaQtd);
-        recurso.setDataAtualizacao(LocalDateTime.now());
+        recurso.setDataAtualizacao(LocalDate.now());
 
         // Resolver alertas de recurso crítico se nível voltou ao normal
         if (novaQtd.compareTo(recurso.getNivelCritico()) > 0) {
@@ -102,7 +103,7 @@ public class RecursoService {
             if (novaQtd.compareTo(BigDecimal.ZERO) < 0) novaQtd = BigDecimal.ZERO;
 
             recurso.setQuantidade(novaQtd);
-            recurso.setDataAtualizacao(LocalDateTime.now());
+            recurso.setDataAtualizacao(LocalDate.now());
 
             String statusMon = "NORMAL";
             if (novaQtd.compareTo(recurso.getNivelCritico()) <= 0) {
@@ -148,18 +149,16 @@ public class RecursoService {
     }
 
     private void registrarMonitoramento(Recurso recurso, BigDecimal valor, String status, String obs) {
-        MonitoramentoId mid = new MonitoramentoId(
-                recurso.getId(),
-                recurso.getColonia().getId(),
-                LocalDateTime.now()
-        );
+
         MonitoramentoRecurso mon = MonitoramentoRecurso.builder()
-                .id(mid)
                 .recurso(recurso)
+                .colonia(recurso.getColonia())
                 .valorRegistrado(valor)
+                .dataRegistro(LocalDateTime.now())
                 .status(status)
                 .observacao(obs)
                 .build();
+
         monitoramentoRepository.save(mon);
     }
 

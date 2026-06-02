@@ -18,17 +18,23 @@ import java.util.List;
 public class Colonia {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_colonia")
+    @SequenceGenerator(
+            name = "seq_colonia",
+            sequenceName = "SEQ_COLONIA",
+            allocationSize = 1
+    )
+    @Column(name = "ID_COLONIA")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "NOME",nullable = false)
     private String nome;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "LOCALIZACAO",nullable = false)
     private Localizacao localizacao;
 
-    @Column(nullable = false)
+    @Column(name = "CAPACIDADE_MAX",nullable = false)
     private Integer capacidadeMax;
 
     @Enumerated(EnumType.STRING)
@@ -36,7 +42,7 @@ public class Colonia {
     @Builder.Default
     private StatusColonia status = StatusColonia.ATIVA;
 
-    @Column(nullable = false)
+    @Column(name = "DATA_FUNDACAO",nullable = false)
     private LocalDate dataFundacao;
 
     @Column(length = 500)

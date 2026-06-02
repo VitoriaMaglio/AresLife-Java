@@ -16,11 +16,17 @@ import java.time.LocalDateTime;
 public class SaudeHabitante {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_saude")
+    @SequenceGenerator(
+            name = "seq_saude",
+            sequenceName = "SEQ_SAUDE",
+            allocationSize = 1
+    )
+    @Column(name = "ID_SAUDE")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "habitante_id", nullable = false)
+    @JoinColumn(name = "ID_HABITANTE", nullable = false)
     private Habitante habitante;
 
     // Modelagem avançada: @Embedded
@@ -28,10 +34,10 @@ public class SaudeHabitante {
     private SinaisVitais sinaisVitais;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "STATUS_SAUDE",nullable = false)
     private StatusSaude statusSaude;
 
-    @Column(nullable = false)
+    @Column(name = "DATA_REGISTRO",nullable = false)
     private LocalDateTime dataRegistro;
 
     @Column(length = 500)

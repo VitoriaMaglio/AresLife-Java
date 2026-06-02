@@ -17,25 +17,32 @@ import java.time.LocalDate;
 public class Treinamento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_treinamento")
+    @SequenceGenerator(
+            name = "seq_treinamento",
+            sequenceName = "SEQ_TREINAMENTO",
+            allocationSize = 1
+    )
+    @Column(name = "ID_TREINAMENTO")
+
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "habitante_id", nullable = false)
+    @JoinColumn(name = "ID_HABITANTE", nullable = false)
     private Habitante habitante;
 
-    @Column(nullable = false)
+    @Column(name = "TIPO_TREINAMENTO",nullable = false)
     private String tipoTreinamento;
 
-    @Column(nullable = false)
+    @Column(name = "CARGA_HORARIA",nullable = false)
     private Integer cargaHoraria;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private StatusTreinamento status;
-
+    @Column(name = "DATA_INICIO")
     private LocalDate dataInicio;
-
+    @Column(name = "DATA_CONCLUSAO")
     private LocalDate dataConclusao;
 
     @Column(precision = 4, scale = 2)

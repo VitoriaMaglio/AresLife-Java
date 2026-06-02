@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "monitoramento_recursos")
@@ -14,16 +15,29 @@ import java.math.BigDecimal;
 @Builder
 public class MonitoramentoRecurso {
 
-    // Modelagem avançada: @EmbeddedId (chave composta)
-    @EmbeddedId
-    private MonitoramentoId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_monitoramento")
+    @SequenceGenerator(
+            name = "seq_monitoramento",
+            sequenceName = "SEQ_MONITORAMENTO",
+            allocationSize = 1
+    )
+    @Column(name = "ID_MONITORAMENTO")
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("idRecurso")
-    @JoinColumn(name = "id_recurso")
+    @JoinColumn(name = "ID_RECURSO", nullable = false)
     private Recurso recurso;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_COLONIA")
+    private Colonia colonia;
+
+    @Column(name = "DATA_REGISTRO")
+    private LocalDateTime dataRegistro;
+
+    @Column(name = "VALOR_REGISTRADO",nullable = false, precision = 10, scale = 2)
     private BigDecimal valorRegistrado;
 
     @Column(nullable = false)

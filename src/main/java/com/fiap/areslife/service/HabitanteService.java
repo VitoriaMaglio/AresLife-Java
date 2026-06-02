@@ -9,6 +9,8 @@ import com.fiap.areslife.enums.TipoHabitante;
 import com.fiap.areslife.exception.BusinessException;
 import com.fiap.areslife.exception.ResourceNotFoundException;
 import com.fiap.areslife.repository.HabitanteRepository;
+import com.fiap.areslife.repository.SaudeHabitanteRepository;
+import com.fiap.areslife.repository.TreinamentoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

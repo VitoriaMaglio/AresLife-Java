@@ -18,15 +18,22 @@ import java.time.LocalDateTime;
 public class Alerta {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_alerta")
+    @SequenceGenerator(
+            name = "seq_alerta",
+            sequenceName = "SEQ_ALERTA",
+            allocationSize = 1
+    )
+    @Column(name = "ID_ALERTA")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "colonia_id", nullable = false)
+    @JoinColumn(name = "ID_COLONIA", nullable = false)
     private Colonia colonia;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "TIPO_ALERTA", nullable = false)
+
     private TipoAlerta tipoAlerta;
 
     @Column(nullable = false, length = 500)
@@ -36,12 +43,13 @@ public class Alerta {
     @Column(nullable = false)
     private SeveridadeAlerta severidade;
 
-    @Column(nullable = false)
+    @Column(name = "DATA_EMISSAO",nullable = false)
     private LocalDateTime dataEmissao;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private StatusAlerta status;
 
+    @Column(name = "RESOLVIDO_EM")
     private LocalDateTime resolvidoEm;
 }
