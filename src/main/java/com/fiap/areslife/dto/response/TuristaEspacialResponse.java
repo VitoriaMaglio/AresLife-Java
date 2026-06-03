@@ -2,6 +2,8 @@ package com.fiap.areslife.dto.response;
 
 import org.springframework.hateoas.RepresentationModel;
 
+import java.time.LocalDate;
+
 public class TuristaEspacialResponse extends RepresentationModel<TuristaEspacialResponse> {
 
     private Long id;
@@ -10,16 +12,29 @@ public class TuristaEspacialResponse extends RepresentationModel<TuristaEspacial
     private String pais;
     private String destino;
     private String status;
+    private Long habitanteId;
+    private LocalDate dataCadastro;
 
     public TuristaEspacialResponse() {}
 
-    public TuristaEspacialResponse(Long id, String nome, Integer idade, String pais, String destino, String status) {
+    public TuristaEspacialResponse(
+            Long id,
+            String nome,
+            Integer idade,
+            String pais,
+            String destino,
+            String status,
+            Long habitanteId,
+            LocalDate dataCadastro) {
+
         this.id = id;
         this.nome = nome;
         this.idade = idade;
         this.pais = pais;
         this.destino = destino;
         this.status = status;
+        this.habitanteId = habitanteId;
+        this.dataCadastro = dataCadastro;
     }
 
     public Long getId() { return id; }

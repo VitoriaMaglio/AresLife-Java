@@ -1,6 +1,6 @@
 package com.fiap.areslife.service;
 
-import com.fiap.areslife.dto.request.PassageiroRequest;
+import com.fiap.areslife.dto.request.TuristaEspacialRequest;
 import com.fiap.areslife.entity.Habitante;
 import com.fiap.areslife.entity.TuristaEspacial;
 import com.fiap.areslife.enums.Localizacao;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -41,7 +40,7 @@ public class TuristaEspacialService {
     }
 
     @Transactional
-    public TuristaEspacial registrar(PassageiroRequest request) {
+    public TuristaEspacial registrar(TuristaEspacialRequest request) {
         if (request.idade() < 18 || request.idade() > 99) {
             throw new BusinessException("Idade do passageiro deve ser entre 18 e 99 anos.");
         }

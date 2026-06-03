@@ -47,9 +47,9 @@ public class ColoniaController {
     public ResponseEntity<ColoniaResponse> atualizar(
             @PathVariable Long id,
             @Valid @RequestBody ColoniaRequest request) {
+
         return ResponseEntity.ok(coloniaService.atualizar(id, request));
     }
-
     @DeleteMapping("/{id}")
     @Operation(summary = "Deletar colônia")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {

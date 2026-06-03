@@ -1,8 +1,10 @@
 package com.fiap.areslife.controller;
 
 import com.fiap.areslife.dto.request.HabitanteRequest;
+import com.fiap.areslife.dto.response.HabitanteResponse;
 import com.fiap.areslife.entity.Habitante;
 import com.fiap.areslife.service.HabitanteService;
+import com.fiap.areslife.service.mapper.HabitanteMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -22,32 +24,35 @@ public class HabitanteController {
 
 
     @GetMapping
-    public ResponseEntity<List<Habitante>> listar(
+    public ResponseEntity<List<HabitanteResponse>> listar(
             @RequestParam(required = false) Long coloniaId,
             @RequestParam(required = false) String tipo) {
 
         return ResponseEntity.ok(
                 habitanteService.listar(coloniaId, tipo)
+                        .stream()
+                        .map(HabitanteMapper::toResponse)
+                        .toList()
         );
     }
     @GetMapping("/{id}")
-    @Operation(summary = "Buscar habitante por ID")
-    public ResponseEntity<Habitante> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(habitanteService.buscarPorId(id));
+    public ResponseEntity<HabitanteResponse> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(
+                HabitanteMapper.toResponse(habitanteService.buscarPorId(id))
+        );
     }
-
     @PostMapping("/astronautas")
-    @Operation(summary = "Registrar novo astronauta")
-    public ResponseEntity<Habitante> criarAstronauta(@Valid @RequestBody HabitanteRequest request) {
-        return ResponseEntity.status(201).body(habitanteService.criarAstronauta(request));
+    public ResponseEntity<HabitanteResponse> criarAstronauta(@Valid @RequestBody HabitanteRequest request) {
+        return ResponseEntity.status(201).body(
+                HabitanteMapper.toResponse(habitanteService.criarAstronauta(request))
+        );
     }
-
     @PostMapping("/turistas")
-    @Operation(summary = "Registrar novo turista (cria treinamentos obrigatórios automaticamente)")
-    public ResponseEntity<Habitante> criarTurista(@Valid @RequestBody HabitanteRequest request) {
-        return ResponseEntity.status(201).body(habitanteService.criarTurista(request));
+    public ResponseEntity<HabitanteResponse> criarTurista(@Valid @RequestBody HabitanteRequest request) {
+        return ResponseEntity.status(201).body(
+                HabitanteMapper.toResponse(habitanteService.criarTurista(request))
+        );
     }
-
     @PatchMapping("/{id}/saida")
     @Operation(summary = "Registrar saída do habitante da colônia")
     public ResponseEntity<Habitante> registrarSaida(@PathVariable Long id) {
@@ -55,11 +60,15 @@ public class HabitanteController {
     }
 
     @PatchMapping("/{id}/transferir")
-    @Operation(summary = "Transferir habitante para outra colônia")
-    public ResponseEntity<Habitante> transferir(
+    public ResponseEntity<HabitanteResponse> transferir(
             @PathVariable Long id,
             @RequestParam Long coloniaDestinoId) {
-        return ResponseEntity.ok(habitanteService.transferir(id, coloniaDestinoId));
+
+        return ResponseEntity.ok(
+                HabitanteMapper.toResponse(
+                        habitanteService.transferir(id, coloniaDestinoId)
+                )
+        );
     }
 
     @DeleteMapping("/{id}")
@@ -68,4 +77,6 @@ public class HabitanteController {
         habitanteService.deletar(id);
         return ResponseEntity.noContent().build();
     }
+
+    
 }

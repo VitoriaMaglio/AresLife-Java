@@ -1,6 +1,6 @@
 package com.fiap.areslife.controller;
 
-import com.fiap.areslife.dto.request.PassageiroRequest;
+import com.fiap.areslife.dto.request.TuristaEspacialRequest;
 import com.fiap.areslife.entity.TuristaEspacial;
 import com.fiap.areslife.enums.Localizacao;
 import com.fiap.areslife.enums.StatusTurista;
@@ -38,7 +38,7 @@ import java.util.List;
 
     @PostMapping
     @Operation(summary = "Registrar novo passageiro")
-    public ResponseEntity<TuristaEspacial> registrar(@Valid @RequestBody PassageiroRequest request) {
+    public ResponseEntity<TuristaEspacial> registrar(@Valid @RequestBody TuristaEspacialRequest request) {
         return ResponseEntity.status(201).body(passageiroService.registrar(request));
     }
 
