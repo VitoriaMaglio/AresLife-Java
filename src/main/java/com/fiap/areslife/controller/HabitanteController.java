@@ -2,7 +2,6 @@ package com.fiap.areslife.controller;
 
 import com.fiap.areslife.dto.request.HabitanteRequest;
 import com.fiap.areslife.entity.Habitante;
-import com.fiap.areslife.enums.TipoHabitante;
 import com.fiap.areslife.service.HabitanteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,14 +20,16 @@ public class HabitanteController {
 
     private final HabitanteService habitanteService;
 
+
     @GetMapping
-    @Operation(summary = "Listar habitantes (filtros: coloniaId, tipo)")
     public ResponseEntity<List<Habitante>> listar(
             @RequestParam(required = false) Long coloniaId,
-            @RequestParam(required = false) TipoHabitante tipo) {
-        return ResponseEntity.ok(habitanteService.listar(coloniaId, tipo));
-    }
+            @RequestParam(required = false) String tipo) {
 
+        return ResponseEntity.ok(
+                habitanteService.listar(coloniaId, tipo)
+        );
+    }
     @GetMapping("/{id}")
     @Operation(summary = "Buscar habitante por ID")
     public ResponseEntity<Habitante> buscarPorId(@PathVariable Long id) {

@@ -5,12 +5,12 @@ import com.fiap.areslife.entity.*;
 import com.fiap.areslife.enums.StatusHabitante;
 import com.fiap.areslife.enums.StatusSaude;
 import com.fiap.areslife.enums.StatusTreinamento;
-import com.fiap.areslife.enums.TipoHabitante;
 import com.fiap.areslife.exception.BusinessException;
 import com.fiap.areslife.exception.ResourceNotFoundException;
 import com.fiap.areslife.repository.HabitanteRepository;
 import com.fiap.areslife.repository.SaudeHabitanteRepository;
 import com.fiap.areslife.repository.TreinamentoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,18 +28,20 @@ public class HabitanteService {
     private final TreinamentoRepository treinamentoRepository;
     private final SaudeHabitanteRepository saudeRepository;
 
-    public List<Habitante> listar(Long coloniaId, TipoHabitante tipo) {
-        if (coloniaId != null && tipo != null) {
-            return habitanteRepository.findByColoniaIdAndTipo(coloniaId, tipo);
-        } else if (coloniaId != null) {
-            return habitanteRepository.findByColoniaId(coloniaId);
-        }
-        return habitanteRepository.findAll();
-    }
+    public List<Habitante> listar(Long coloniaId, String tipo) {
 
-    public Habitante buscarPorId(Long id) {
-        return habitanteRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Habitante não encontrado com id: " + id));
+        List<Habitante> habitantes = coloniaId != null
+                ? habitanteRepository.findByColoniaId(coloniaId)
+                : habitanteRepository.findAll();
+
+        if (tipo == null) {
+            return habitantes;
+        }
+
+        return habitantes.stream()
+                .filter(h -> tipo.equalsIgnoreCase(
+                        h.getClass().getSimpleName()))
+                .toList();
     }
 
     @Transactional
@@ -71,6 +73,13 @@ public class HabitanteService {
         return salvo;
     }
 
+    @Transactional(readOnly = true)
+    public Habitante buscarPorId(Long id) {
+        return habitanteRepository.findById(id)
+                .orElseThrow(() ->
+                        new EntityNotFoundException("Habitante não encontrado: " + id));
+    }
+
     @Transactional
     public Habitante registrarSaida(Long id) {
         Habitante habitante = buscarPorId(id);
@@ -95,7 +104,7 @@ public class HabitanteService {
         habitanteRepository.deleteById(id);
     }
 
-    // ---- helpers ----
+
 
     private Colonia validarCapacidade(Long coloniaId) {
         Colonia colonia = coloniaService.findOrThrow(coloniaId);

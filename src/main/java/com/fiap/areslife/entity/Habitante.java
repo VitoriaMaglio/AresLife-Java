@@ -1,7 +1,6 @@
 package com.fiap.areslife.entity;
 
 import com.fiap.areslife.enums.StatusHabitante;
-import com.fiap.areslife.enums.TipoHabitante;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,9 +35,6 @@ public class Habitante {
     @Column(nullable = false)
     private String nome;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, insertable = false, updatable = false)
-    private TipoHabitante tipo;
 
     @Column(nullable = false)
     private String nacionalidade;
