@@ -55,8 +55,12 @@ public class HabitanteController {
     }
     @PatchMapping("/{id}/saida")
     @Operation(summary = "Registrar saída do habitante da colônia")
-    public ResponseEntity<Habitante> registrarSaida(@PathVariable Long id) {
-        return ResponseEntity.ok(habitanteService.registrarSaida(id));
+    public ResponseEntity<HabitanteResponse> registrarSaida(@PathVariable Long id) {
+        return ResponseEntity.ok(
+                HabitanteMapper.toResponse(
+                        habitanteService.registrarSaida(id)
+                )
+        );
     }
 
     @PatchMapping("/{id}/transferir")
