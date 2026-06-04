@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
 @RestController
 @RequestMapping("/api/alertas")
 @RequiredArgsConstructor
@@ -31,24 +33,26 @@ public class AlertaController {
             @RequestParam(required = false) SeveridadeAlerta severidade,
             @RequestParam(required = false) StatusAlerta status) {
 
-        return ResponseEntity.ok(
-                alertaService.listar(coloniaId, severidade, status)
-                        .stream()
-                        .map(AlertaMapper::toResponse)
-                        .toList()
-        );
+        List<AlertaResponse> list = alertaService.listar(coloniaId, severidade, status)
+                .stream()
+                .map(AlertaMapper::toResponse)
+                .toList();
+
+        list.forEach(a -> a.add(
+            linkTo(methodOn(AlertaController.class).buscarPorId(a.getId())).withSelfRel()
+        ));
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Buscar alerta por ID")
-    public ResponseEntity<AlertaResponse> buscarPorId(
-            @PathVariable Long id) {
-
-        return ResponseEntity.ok(
-                AlertaMapper.toResponse(
-                        alertaService.buscarPorId(id)
-                )
+    public ResponseEntity<AlertaResponse> buscarPorId(@PathVariable Long id) {
+        AlertaResponse response = AlertaMapper.toResponse(alertaService.buscarPorId(id));
+        response.add(
+            linkTo(methodOn(AlertaController.class).buscarPorId(id)).withSelfRel(),
+            linkTo(methodOn(AlertaController.class).listar(null, null, null)).withRel("alertas")
         );
+        return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{id}/resolver")
@@ -56,25 +60,20 @@ public class AlertaController {
     public ResponseEntity<AlertaResponse> resolver(
             @PathVariable Long id,
             @Valid @RequestBody AlertaResolverRequest request) {
-
-        return ResponseEntity.ok(
-                AlertaMapper.toResponse(
-                        alertaService.resolver(id, request)
-                )
+        AlertaResponse response = AlertaMapper.toResponse(alertaService.resolver(id, request));
+        response.add(
+            linkTo(methodOn(AlertaController.class).buscarPorId(id)).withSelfRel(),
+            linkTo(methodOn(AlertaController.class).listar(null, null, null)).withRel("alertas")
         );
+        return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/colonias/{coloniaId}/resolver-lote")
-    @Operation(summary = "Resolver alertas em lote")
+    @Operation(summary = "Resolver alertas em lote por colônia")
     public ResponseEntity<String> resolverLote(
             @PathVariable Long coloniaId,
             @RequestParam TipoAlerta tipoAlerta) {
-
-        int resolvidos =
-                alertaService.resolverLotePorColonia(coloniaId, tipoAlerta);
-
-        return ResponseEntity.ok(
-                resolvidos + " alerta(s) resolvido(s) com sucesso."
-        );
+        int resolvidos = alertaService.resolverLotePorColonia(coloniaId, tipoAlerta);
+        return ResponseEntity.ok(resolvidos + " alerta(s) resolvido(s) com sucesso.");
     }
 }
