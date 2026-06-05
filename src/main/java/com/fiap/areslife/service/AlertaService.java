@@ -19,15 +19,15 @@ import java.util.List;
 public class AlertaService {
 
     private final AlertaRepository alertaRepository;
+    private final LogSistemaService logService;
 
     public List<Alerta> listar(Long coloniaId, SeveridadeAlerta severidade, StatusAlerta status) {
-        if (coloniaId != null && status != null) {
+        if (coloniaId != null && status != null)
             return alertaRepository.findByColoniaIdAndStatus(coloniaId, status);
-        } else if (coloniaId != null) {
+        if (coloniaId != null)
             return alertaRepository.findByColoniaId(coloniaId);
-        } else if (severidade != null && status != null) {
+        if (severidade != null && status != null)
             return alertaRepository.findBySeveridadeAndStatus(severidade, status);
-        }
         return alertaRepository.findAll();
     }
 
@@ -42,20 +42,20 @@ public class AlertaService {
         alerta.setStatus(StatusAlerta.RESOLVIDO);
         alerta.setResolvidoEm(LocalDateTime.now());
         alerta.setDescricao(alerta.getDescricao() + " | Resolução: " + request.observacao());
-        return alertaRepository.save(alerta);
+        Alerta salvo = alertaRepository.save(alerta);
+        logService.registrar("UPDATE", "alertas",
+                "Alerta id=" + id + " resolvido. Obs: " + request.observacao());
+        return salvo;
     }
 
     @Transactional
     public int resolverLotePorColonia(Long coloniaId, TipoAlerta tipoAlerta) {
         List<Alerta> alertas = alertaRepository.findByColoniaIdAndTipoAlertaAndStatusNot(
                 coloniaId, tipoAlerta, StatusAlerta.RESOLVIDO);
-
-        alertas.forEach(a -> {
-            a.setStatus(StatusAlerta.RESOLVIDO);
-            a.setResolvidoEm(LocalDateTime.now());
-        });
-
+        alertas.forEach(a -> { a.setStatus(StatusAlerta.RESOLVIDO); a.setResolvidoEm(LocalDateTime.now()); });
         alertaRepository.saveAll(alertas);
+        logService.registrar("UPDATE", "alertas",
+                "Lote de " + alertas.size() + " alerta(s) do tipo " + tipoAlerta + " resolvido(s) para colônia id=" + coloniaId);
         return alertas.size();
     }
 }

@@ -29,7 +29,7 @@ public class Habitante {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_COLONIA", nullable = false)
+    @JoinColumn(name = "ID_COLONIA", nullable = true)
     private Colonia colonia;
 
     @Column(nullable = false)

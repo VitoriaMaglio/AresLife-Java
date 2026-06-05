@@ -24,17 +24,14 @@ public class ColoniaService {
     private final ColoniaRepository coloniaRepository;
     private final HabitanteRepository habitanteRepository;
     private final AlertaRepository alertaRepository;
+    private final LogSistemaService logService;
 
     public List<ColoniaResponse> listarTodas() {
-        return coloniaRepository.findAll()
-                .stream()
-                .map(this::toResponse)
-                .toList();
+        return coloniaRepository.findAll().stream().map(this::toResponse).toList();
     }
 
     public ColoniaResponse buscarPorId(Long id) {
-        Colonia colonia = findOrThrow(id);
-        return toResponse(colonia);
+        return toResponse(findOrThrow(id));
     }
 
     @Transactional
@@ -47,31 +44,27 @@ public class ColoniaService {
                 .dataFundacao(request.dataFundacao())
                 .descricao(request.descricao())
                 .build();
-        return toResponse(coloniaRepository.save(colonia));
+        Colonia salva = coloniaRepository.save(colonia);
+        logService.registrar("INSERT", "colonias",
+                "Colônia criada: " + salva.getNome() + " (id=" + salva.getId() + "), local=" + salva.getLocalizacao());
+        return toResponse(salva);
     }
 
     @Transactional
     public ColoniaResponse atualizar(Long id, ColoniaRequest request) {
         Colonia colonia = findOrThrow(id);
-
-        boolean mudouParaEmergencia =
-                request.localizacao() != null
-                && colonia.getStatus() != StatusColonia.EMERGENCIA;
-
         colonia.setNome(request.nome());
         colonia.setLocalizacao(request.localizacao());
         colonia.setCapacidadeMax(request.capacidadeMax());
         colonia.setDataFundacao(request.dataFundacao());
         colonia.setDescricao(request.descricao());
-
-        Colonia saved = coloniaRepository.save(colonia);
-
-        // Regra: ao mudar para EMERGENCIA, criar alerta automático
-        if (mudouParaEmergencia && saved.getStatus() == StatusColonia.EMERGENCIA) {
-            criarAlertaEmergencia(saved);
+        Colonia salva = coloniaRepository.save(colonia);
+        logService.registrar("UPDATE", "colonias",
+                "Colônia atualizada: " + salva.getNome() + " (id=" + id + ")");
+        if (salva.getStatus() == StatusColonia.EMERGENCIA) {
+            criarAlertaEmergencia(salva);
         }
-
-        return toResponse(saved);
+        return toResponse(salva);
     }
 
     @Transactional
@@ -80,13 +73,13 @@ public class ColoniaService {
         long habitantesAtivos = habitanteRepository.countByColoniaIdAndStatus(id, StatusHabitante.ATIVO);
         if (habitantesAtivos > 0) {
             throw new BusinessException(
-                    "Não é possível deletar a colônia pois existem " + habitantesAtivos + " habitante(s) ativo(s)."
-            );
+                    "Não é possível deletar a colônia pois existem " + habitantesAtivos + " habitante(s) ativo(s).");
         }
+        String nome = colonia.getNome();
         coloniaRepository.delete(colonia);
+        logService.registrar("DELETE", "colonias", "Colônia removida: " + nome + " (id=" + id + ")");
     }
 
-    // Método interno usado por outros services
     public Colonia findOrThrow(Long id) {
         return coloniaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Colônia não encontrada com id: " + id));
@@ -102,19 +95,15 @@ public class ColoniaService {
                 .status(StatusAlerta.ABERTO)
                 .build();
         alertaRepository.save(alerta);
+        logService.registrar("INSERT", "alertas",
+                "Alerta de emergência gerado para colônia id=" + colonia.getId());
     }
 
     private ColoniaResponse toResponse(Colonia colonia) {
         long total = habitanteRepository.countByColoniaIdAndStatus(colonia.getId(), StatusHabitante.ATIVO);
         return new ColoniaResponse(
-                colonia.getId(),
-                colonia.getNome(),
-                colonia.getLocalizacao(),
-                colonia.getCapacidadeMax(),
-                colonia.getStatus(),
-                colonia.getDataFundacao(),
-                colonia.getDescricao(),
-                total
-        );
+                colonia.getId(), colonia.getNome(), colonia.getLocalizacao(),
+                colonia.getCapacidadeMax(), colonia.getStatus(), colonia.getDataFundacao(),
+                colonia.getDescricao(), total);
     }
 }

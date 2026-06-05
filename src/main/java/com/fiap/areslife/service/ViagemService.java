@@ -1,10 +1,7 @@
 package com.fiap.areslife.service;
 
 import com.fiap.areslife.dto.request.ViagemRequest;
-import com.fiap.areslife.entity.Colonia;
-import com.fiap.areslife.entity.Habitante;
-import com.fiap.areslife.entity.Turista;
-import com.fiap.areslife.entity.ViagemTuristica;
+import com.fiap.areslife.entity.*;
 import com.fiap.areslife.enums.*;
 import com.fiap.areslife.exception.BusinessException;
 import com.fiap.areslife.exception.ResourceNotFoundException;
@@ -28,15 +25,15 @@ public class ViagemService {
     private final HabitanteRepository habitanteRepository;
     private final ColoniaService coloniaService;
     private final TreinamentoRepository treinamentoRepository;
+    private final LogSistemaService logService;
 
     public List<ViagemTuristica> listar(Long habitanteId, StatusViagem status) {
-        if (habitanteId != null && status != null) {
+        if (habitanteId != null && status != null)
             return viagemRepository.findByHabitanteIdAndStatusViagem(habitanteId, status);
-        } else if (habitanteId != null) {
+        if (habitanteId != null)
             return viagemRepository.findByHabitanteId(habitanteId);
-        } else if (status != null) {
+        if (status != null)
             return viagemRepository.findByStatusViagem(status);
-        }
         return viagemRepository.findAll();
     }
 
@@ -49,93 +46,79 @@ public class ViagemService {
     public ViagemTuristica reservar(ViagemRequest request) {
         Habitante habitante = habitanteRepository.findById(request.habitanteId())
                 .orElseThrow(() -> new ResourceNotFoundException("Habitante não encontrado com id: " + request.habitanteId()));
-
-        // Regra: somente TURISTA pode viajar
-        if (!(habitante instanceof Turista)) {
+        if (!(habitante instanceof Turista))
             throw new BusinessException("Somente turistas podem reservar viagens turísticas.");
-        }
-
-        // Regra: turista deve ter pelo menos 1 treinamento CONCLUIDO
         boolean temTreinamento = treinamentoRepository.existsByHabitanteIdAndStatus(
                 request.habitanteId(), StatusTreinamento.CONCLUIDO);
-        if (!temTreinamento) {
+        if (!temTreinamento)
             throw new BusinessException("O turista precisa ter pelo menos 1 treinamento concluído antes de viajar.");
-        }
-
-        if (request.dataRetorno().isBefore(request.dataPartida())) {
+        if (request.dataRetorno().isBefore(request.dataPartida()))
             throw new BusinessException("Data de retorno não pode ser anterior à data de partida.");
-        }
 
         Colonia colonia = coloniaService.findOrThrow(request.coloniaId());
         BigDecimal valor = calcularValor(colonia.getLocalizacao(), request.pacote(),
                 request.dataPartida(), request.dataRetorno());
 
         ViagemTuristica viagem = ViagemTuristica.builder()
-                .habitante(habitante)
-                .colonia(colonia)
-                .dataPartida(request.dataPartida())
-                .dataRetorno(request.dataRetorno())
-                .statusViagem(StatusViagem.RESERVADA)
-                .valor(valor)
-                .pacote(request.pacote())
+                .habitante(habitante).colonia(colonia)
+                .dataPartida(request.dataPartida()).dataRetorno(request.dataRetorno())
+                .statusViagem(StatusViagem.RESERVADA).valor(valor).pacote(request.pacote())
                 .build();
 
-        return viagemRepository.save(viagem);
+        ViagemTuristica salvo = viagemRepository.save(viagem);
+        logService.registrar("INSERT", "viagens_turisticas",
+                "Viagem reservada (id=" + salvo.getId() + ") para habitante id=" + request.habitanteId()
+                + ", colônia id=" + request.coloniaId() + ", pacote=" + request.pacote() + ", valor=R$" + valor);
+        return salvo;
     }
 
     @Transactional
     public ViagemTuristica iniciar(Long id) {
         ViagemTuristica viagem = buscarPorId(id);
-        if (viagem.getStatusViagem() != StatusViagem.RESERVADA) {
+        if (viagem.getStatusViagem() != StatusViagem.RESERVADA)
             throw new BusinessException("Somente viagens com status RESERVADA podem ser iniciadas.");
-        }
         viagem.setStatusViagem(StatusViagem.EM_ANDAMENTO);
-        return viagemRepository.save(viagem);
+        ViagemTuristica salvo = viagemRepository.save(viagem);
+        logService.registrar("UPDATE", "viagens_turisticas", "Viagem id=" + id + " iniciada.");
+        return salvo;
     }
 
     @Transactional
     public ViagemTuristica concluir(Long id) {
         ViagemTuristica viagem = buscarPorId(id);
-        if (viagem.getStatusViagem() != StatusViagem.EM_ANDAMENTO) {
+        if (viagem.getStatusViagem() != StatusViagem.EM_ANDAMENTO)
             throw new BusinessException("Somente viagens EM_ANDAMENTO podem ser concluídas.");
-        }
         viagem.setStatusViagem(StatusViagem.CONCLUIDA);
-
-        // Atualizar data de saída do habitante
         Habitante habitante = viagem.getHabitante();
         habitante.setDataSaida(LocalDate.now());
         habitanteRepository.save(habitante);
-
-        return viagemRepository.save(viagem);
+        ViagemTuristica salvo = viagemRepository.save(viagem);
+        logService.registrar("UPDATE", "viagens_turisticas",
+                "Viagem id=" + id + " concluída. Habitante " + habitante.getNome() + " registrou saída.");
+        return salvo;
     }
 
     @Transactional
     public ViagemTuristica cancelar(Long id) {
         ViagemTuristica viagem = buscarPorId(id);
-        if (viagem.getStatusViagem() != StatusViagem.RESERVADA) {
+        if (viagem.getStatusViagem() != StatusViagem.RESERVADA)
             throw new BusinessException("Somente viagens RESERVADAS podem ser canceladas.");
-        }
         viagem.setStatusViagem(StatusViagem.CANCELADA);
-        return viagemRepository.save(viagem);
+        ViagemTuristica salvo = viagemRepository.save(viagem);
+        logService.registrar("UPDATE", "viagens_turisticas", "Viagem id=" + id + " cancelada.");
+        return salvo;
     }
-
-    // ---- helpers ----
 
     private BigDecimal calcularValor(Localizacao localizacao, PacoteViagem pacote,
                                      LocalDate partida, LocalDate retorno) {
         BigDecimal base = localizacao == Localizacao.MARTE
-                ? new BigDecimal("2000000")
-                : new BigDecimal("500000");
-
-        BigDecimal multiplicador = switch (pacote) {
-            case BASICO -> BigDecimal.ONE;
+                ? new BigDecimal("2000000") : new BigDecimal("500000");
+        BigDecimal mult = switch (pacote) {
+            case BASICO  -> BigDecimal.ONE;
             case PREMIUM -> new BigDecimal("1.5");
-            case VIP -> new BigDecimal("2.5");
+            case VIP     -> new BigDecimal("2.5");
         };
-
-        long dias = ChronoUnit.DAYS.between(partida, retorno);
-        if (dias <= 0) dias = 1;
-
-        return base.multiply(multiplicador).multiply(BigDecimal.valueOf(dias));
+        long dias = Math.max(ChronoUnit.DAYS.between(partida, retorno), 1);
+        return base.multiply(mult).multiply(BigDecimal.valueOf(dias));
     }
 }

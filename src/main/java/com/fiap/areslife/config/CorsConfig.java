@@ -15,16 +15,16 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // Permite qualquer origem (para deploy público)
+
         config.setAllowedOriginPatterns(List.of("*"));
 
-        // Métodos HTTP permitidos
+
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
 
-        // Headers permitidos
+
         config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept"));
 
-        // Expõe o header Authorization na resposta
+
         config.setExposedHeaders(List.of("Authorization"));
 
         config.setAllowCredentials(true);
