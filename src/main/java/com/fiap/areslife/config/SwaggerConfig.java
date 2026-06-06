@@ -22,7 +22,7 @@ public class SwaggerConfig {
                         .contact(new Contact()
                                 .name("Time AresLife")
                                 .email("areslife@fiap.com.br")))
-                // ✅ Adiciona suporte a JWT no Swagger UI (cadeado nos endpoints)
+                // Adiciona suporte a JWT no Swagger UI (cadeado nos endpoints)
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth", new SecurityScheme()

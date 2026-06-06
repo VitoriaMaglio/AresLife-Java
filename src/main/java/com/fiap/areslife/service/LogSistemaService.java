@@ -14,10 +14,7 @@ public class LogSistemaService {
 
     private final LogSistemaRepository logRepository;
 
-    /**
-     * Registra uma operação no log do sistema.
-     * Chamado internamente pelos outros services para auditoria.
-     */
+
     public void registrar(String operacao, String tabelaAfetada, String descricao) {
         LogSistema log = LogSistema.builder()
                 .operacao(operacao)

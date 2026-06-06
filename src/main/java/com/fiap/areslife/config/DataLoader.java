@@ -26,7 +26,7 @@ public class DataLoader {
 
         return args -> {
 
-            // ── Seed admin user se não existir ─────────────────────────────
+            // ── Seed admin user se não existir
             if (usuarioRepo.findByEmail("admin@areslife.com").isEmpty()) {
                 Usuario admin = new Usuario();
                 admin.setNome("Administrador");
@@ -37,7 +37,7 @@ public class DataLoader {
                 System.out.println("✅ Admin criado: admin@areslife.com / admin123");
             }
 
-            // ── Seed turistas iniciais ──────────────────────────────────────
+            // ── Seed turistas iniciais
             if (turistaRepo.count() == 0) {
                 turistaRepo.save(TuristaEspacial.builder()
                         .nome("Marina Magalhães")
@@ -84,7 +84,7 @@ public class DataLoader {
                         .dataCadastro(LocalDate.now())
                         .build());
 
-                System.out.println("✅ Dados iniciais de turistas carregados!");
+                System.out.println(" Dados iniciais de turistas carregados!");
             }
         };
     }

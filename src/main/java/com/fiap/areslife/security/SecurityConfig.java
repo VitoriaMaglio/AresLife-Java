@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService;
-    private final JwtFilter jwtFilter; // ✅ injetado para registrar na cadeia
+    private final JwtFilter jwtFilter; //
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -54,6 +54,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 // Swagger / OpenAPI - libera sem autenticação
                 .requestMatchers(
+                        "/",
                     "/auth/**",
                         "/tourists/**",
                     "/v3/api-docs/**",
@@ -63,7 +64,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .authenticationProvider(authenticationProvider())
-            // ✅ ESSENCIAL: registra o filtro JWT antes do filtro padrão de autenticação
+
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

@@ -30,7 +30,7 @@ public class Usuario {
     @Column(name = "EMAIL", length = 100, unique = true, nullable = false)
     private String email;
 
-    @Column(name = "SENHA", length = 255, nullable = false) // ✅ garante que o hash BCrypt (60 chars) não é truncado
+    @Column(name = "SENHA", length = 255, nullable = false)
     private String senha;
 
     @Column(name = "ROLE", length = 20)
