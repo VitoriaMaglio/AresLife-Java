@@ -1,0 +1,2320 @@
+{
+  "info": {
+    "_postman_id": "05cd78ff-0f0c-419d-a798-86f174bcf989",
+    "name": "AresLife API",
+    "description": "Coleção completa de requisições para testar a API AresLife - Global Solution FIAP 2026",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "47850383"
+  },
+  "item": [
+    {
+      "name": "🚀 Turistas Espaciais",
+      "item": [
+        {
+          "name": "GET - Listar todos os turistas",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/turistas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "turistas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Buscar turista por ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/turistas/{{turistaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "turistas",
+                "{{turistaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Criar turista",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Vi\",\n  \"idade\": 19,\n  \"pais\": \"Brasil\",\n  \"destino\": \"MARTE\",\n  \"status\": \"EM_TRANSITO\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/turistas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "turistas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Criar turista (Lua)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Carlos Andrade\",\n  \"idade\": 34,\n  \"pais\": \"Argentina\",\n  \"destino\": \"LUA\",\n  \"status\": \"AGUARDANDO\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/turistas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "turistas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - ERRO: destino inválido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Teste Erro\",\n  \"idade\": 25,\n  \"pais\": \"Brasil\",\n  \"destino\": \"Jupiter\",\n  \"status\": \"Em treinamento\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/turistas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "turistas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - ERRO: idade abaixo do mínimo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Criança Teste\",\n  \"idade\": 10,\n  \"pais\": \"Brasil\",\n  \"destino\": \"Marte\",\n  \"status\": \"Em treinamento\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/turistas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "turistas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT - Atualizar turista",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Marina Magalhães Atualizado\",\n  \"idade\": 20,\n  \"pais\": \"Brasil\",\n  \"destino\": \"Lua\",\n  \"status\": \"Pronto para embarque\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/turistas/{{turistaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "turistas",
+                "{{turistaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE - Deletar turista",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/turistas/{{turistaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "turistas",
+                "{{turistaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE - ERRO: turista não existe",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/turistas/9999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "turistas",
+                "9999"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "🪐 Colônias",
+      "item": [
+        {
+          "name": "GET - Listar todas as colônias",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Buscar colônia por ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias/{{coloniaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias",
+                "{{coloniaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Criar colônia em Marte",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Base Alpha\",\n  \"localizacao\": \"MARTE\",\n  \"capacidadeMax\": 50,\n  \"dataFundacao\": \"2035-03-15\",\n  \"descricao\": \"Primeira base humana permanente em Marte\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Criar colônia na Lua",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Lunar Gateway\",\n  \"localizacao\": \"LUA\",\n  \"capacidadeMax\": 20,\n  \"dataFundacao\": \"2030-07-20\",\n  \"descricao\": \"Estação orbital lunar para turismo espacial\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT - Atualizar colônia",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Base Alpha Expandida\",\n  \"localizacao\": \"MARTE\",\n  \"capacidadeMax\": 100,\n  \"dataFundacao\": \"2035-03-15\",\n  \"descricao\": \"Base expandida após segunda missão de suprimentos\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias/{{coloniaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias",
+                "{{coloniaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE - Deletar colônia",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias/{{coloniaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias",
+                "{{coloniaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Simular dia (consumo de recursos)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias/{{coloniaId}}/simular-dia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias",
+                "{{coloniaId}}",
+                "simular-dia"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "⚗️ Recursos",
+      "item": [
+        {
+          "name": "GET - Listar recursos da colônia",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias/{{coloniaId}}/recursos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias",
+                "{{coloniaId}}",
+                "recursos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Buscar recurso por ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias/{{coloniaId}}/recursos/{{recursoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias",
+                "{{coloniaId}}",
+                "recursos",
+                "{{recursoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Criar recurso OXIGENIO",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"coloniaId\": 2,\n  \"tipoRecurso\": \"OXIGENIO\",\n  \"quantidade\": 500.00,\n  \"unidade\": \"kg\",\n  \"nivelCritico\": 50.00,\n  \"nivelMaximo\": 1000.00\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias/2/recursos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias",
+                "2",
+                "recursos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Criar recurso AGUA",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"coloniaId\": 1,\n  \"tipoRecurso\": \"AGUA\",\n  \"quantidade\": 2000.00,\n  \"unidade\": \"litros\",\n  \"nivelCritico\": 200.00,\n  \"nivelMaximo\": 5000.00\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias/{{coloniaId}}/recursos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias",
+                "{{coloniaId}}",
+                "recursos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Criar recurso ENERGIA",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"coloniaId\": 1,\n  \"tipoRecurso\": \"ENERGIA\",\n  \"quantidade\": 3000.00,\n  \"unidade\": \"kWh\",\n  \"nivelCritico\": 300.00,\n  \"nivelMaximo\": 8000.00\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias/{{coloniaId}}/recursos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias",
+                "{{coloniaId}}",
+                "recursos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Criar recurso ALIMENTACAO",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"coloniaId\": 1,\n  \"tipoRecurso\": \"ALIMENTACAO\",\n  \"quantidade\": 800.00,\n  \"unidade\": \"kg\",\n  \"nivelCritico\": 80.00,\n  \"nivelMaximo\": 2000.00\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias/{{coloniaId}}/recursos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias",
+                "{{coloniaId}}",
+                "recursos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Abastecer recurso",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantidade\": 200.00\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias/{{coloniaId}}/recursos/{{recursoId}}/abastecer",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias",
+                "{{coloniaId}}",
+                "recursos",
+                "{{recursoId}}",
+                "abastecer"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Calcular autonomia do recurso",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias/{{coloniaId}}/recursos/{{recursoId}}/autonomia?tipo=OXIGENIO",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias",
+                "{{coloniaId}}",
+                "recursos",
+                "{{recursoId}}",
+                "autonomia"
+              ],
+              "query": [
+                {
+                  "key": "tipo",
+                  "value": "OXIGENIO"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE - Deletar recurso",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/colonias/{{coloniaId}}/recursos/{{recursoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "colonias",
+                "{{coloniaId}}",
+                "recursos",
+                "{{recursoId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "👨‍🚀 Habitantes",
+      "item": [
+        {
+          "name": "GET - Listar todos os habitantes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/habitantes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habitantes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Listar habitantes de uma colônia",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/habitantes?coloniaId=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habitantes"
+              ],
+              "query": [
+                {
+                  "key": "coloniaId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Listar somente turistas da colônia",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/habitantes?coloniaId=1&tipo=TURISTA",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habitantes"
+              ],
+              "query": [
+                {
+                  "key": "coloniaId",
+                  "value": "1"
+                },
+                {
+                  "key": "tipo",
+                  "value": "TURISTA"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Listar somente astronautas da colônia",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/habitantes?coloniaId=1&tipo=ASTRONAUTA",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habitantes"
+              ],
+              "query": [
+                {
+                  "key": "coloniaId",
+                  "value": "1"
+                },
+                {
+                  "key": "tipo",
+                  "value": "ASTRONAUTA"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Buscar habitante por ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/habitantes/{{habitanteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habitantes",
+                "{{habitanteId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Criar astronauta",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"coloniaId\": 1,\n  \"nome\": \"Vi\",\n  \"nacionalidade\": \"Americana\",\n  \"dataChegada\": \"2035-06-01\",\n  \"especialidade\": \"Geologia Marciana\",\n  \"missaoAtual\": \"Exploração do Vale Marineris\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/habitantes/astronautas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "habitantes",
+                "astronautas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Criar turista (habitante)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"coloniaId\": 1,\n  \"nome\": \"Yuki Tanaka\",\n  \"nacionalidade\": \"Japonesa\",\n  \"dataChegada\": \"2035-07-15\",\n  \"agenciaTurismo\": \"SpaceX Travel\",\n  \"pacoteSelecionado\": \"VIP\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/habitantes/turistas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "habitantes",
+                "turistas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH - Registrar saída do habitante",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/habitantes/{{habitanteId}}/saida",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habitantes",
+                "{{habitanteId}}",
+                "saida"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH - Transferir habitante para outra colônia",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/habitantes/{{habitanteId}}/transferir?coloniaDestinoId=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habitantes",
+                "{{habitanteId}}",
+                "transferir"
+              ],
+              "query": [
+                {
+                  "key": "coloniaDestinoId",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE - Remover habitante",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/habitantes/{{habitanteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habitantes",
+                "{{habitanteId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "❤️ Saúde dos Habitantes",
+      "item": [
+        {
+          "name": "GET - Histórico de saúde (paginado)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/habitantes/{{habitanteId}}/saude?page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habitantes",
+                "{{habitanteId}}",
+                "saude"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Último registro de saúde",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/habitantes/{{habitanteId}}/saude/ultimo",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habitantes",
+                "{{habitanteId}}",
+                "saude",
+                "ultimo"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Registrar sinais vitais NORMAIS",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pressaoArterial\": \"120/80\",\n  \"frequenciaCardiaca\": 72,\n  \"saturacaoOxigenio\": 98.0,\n  \"temperaturaCorporal\": 36.5,\n  \"observacoes\": \"Checkup de rotina - todos os parâmetros normais\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/habitantes/{{habitanteId}}/saude",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habitantes",
+                "{{habitanteId}}",
+                "saude"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Registrar sinais vitais ATENÇÃO",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pressaoArterial\": \"140/90\",\n  \"frequenciaCardiaca\": 105,\n  \"saturacaoOxigenio\": 93.0,\n  \"temperaturaCorporal\": 38.2,\n  \"observacoes\": \"Habitante relatou tontura após EVA (atividade extraveicular)\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/habitantes/{{habitanteId}}/saude",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habitantes",
+                "{{habitanteId}}",
+                "saude"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Registrar sinais vitais CRÍTICOS (gera alerta automático)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pressaoArterial\": \"160/110\",\n  \"frequenciaCardiaca\": 135,\n  \"saturacaoOxigenio\": 85.0,\n  \"temperaturaCorporal\": 40.2,\n  \"observacoes\": \"EMERGÊNCIA: Habitante em colapso após falha no traje espacial\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/habitantes/{{habitanteId}}/saude",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habitantes",
+                "{{habitanteId}}",
+                "saude"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "🎓 Treinamentos",
+      "item": [
+        {
+          "name": "GET - Listar todos os treinamentos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/treinamentos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "treinamentos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Listar treinamentos de um habitante",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/treinamentos?habitanteId=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "treinamentos"
+              ],
+              "query": [
+                {
+                  "key": "habitanteId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Listar treinamentos concluídos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/treinamentos?status=CONCLUIDO",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "treinamentos"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "CONCLUIDO"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Buscar treinamento por ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/treinamentos/{{treinamentoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "treinamentos",
+                "{{treinamentoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Listar pendentes por colônia",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/treinamentos/pendentes/colonia/{{coloniaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "treinamentos",
+                "pendentes",
+                "colonia",
+                "{{coloniaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Criar treinamento",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"habitanteId\": 1,\n  \"tipoTreinamento\": \"Manobras de Emergência em Gravidade Zero\",\n  \"cargaHoraria\": 24\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/treinamentos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "treinamentos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Criar treinamento Copy",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"habitanteId\": 1,\n  \"tipoTreinamento\": \"Manobras de Emergência em Gravidade Zero\",\n  \"cargaHoraria\": 24\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/treinamentos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "treinamentos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH - Iniciar treinamento",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/treinamentos/7/iniciar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "treinamentos",
+                "7",
+                "iniciar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH - Concluir treinamento com nota",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/treinamentos/7/concluir?notaFinal=8.5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "treinamentos",
+                "7",
+                "concluir"
+              ],
+              "query": [
+                {
+                  "key": "notaFinal",
+                  "value": "8.5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH - ERRO: nota inválida (acima de 10)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/treinamentos/{{treinamentoId}}/concluir?notaFinal=11.0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "treinamentos",
+                "{{treinamentoId}}",
+                "concluir"
+              ],
+              "query": [
+                {
+                  "key": "notaFinal",
+                  "value": "11.0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE - Remover treinamento",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/treinamentos/{{treinamentoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "treinamentos",
+                "{{treinamentoId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "✈️ Viagens Turísticas",
+      "item": [
+        {
+          "name": "GET - Listar todas as viagens",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/viagens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "viagens"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Listar viagens de um habitante",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/viagens?habitanteId=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "viagens"
+              ],
+              "query": [
+                {
+                  "key": "habitanteId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Listar viagens por status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/viagens?status=RESERVADA",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "viagens"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "RESERVADA"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Buscar viagem por ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/viagens/{{viagemId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "viagens",
+                "{{viagemId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Reservar viagem BASICO",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"habitanteId\": 7,\n  \"coloniaId\": 1,\n  \"dataPartida\": \"2035-09-01\",\n  \"dataRetorno\": \"2035-09-15\",\n  \"pacote\": \"BASICO\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/viagens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "viagens"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Reservar viagem PREMIUM",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"habitanteId\": 7,\n  \"coloniaId\": 1,\n  \"dataPartida\": \"2035-10-01\",\n  \"dataRetorno\": \"2035-10-30\",\n  \"pacote\": \"PREMIUM\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/viagens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "viagens"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Reservar viagem VIP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"habitanteId\": 7,\n  \"coloniaId\": 1,\n  \"dataPartida\": \"2036-01-01\",\n  \"dataRetorno\": \"2036-02-28\",\n  \"pacote\": \"VIP\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/viagens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "viagens"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Reservar viagem RESERVADA",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"habitanteId\": 7,\n  \"coloniaId\": 1,\n  \"dataPartida\": \"2036-01-01\",\n  \"dataRetorno\": \"2036-01-10\",\n  \"pacote\": \"BASICO\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/viagens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "viagens"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - ERRO: viagem sem treinamento concluído",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"habitanteId\": 7,\n  \"coloniaId\": 1,\n  \"dataPartida\": \"2035-09-01\",\n  \"dataRetorno\": \"2035-09-10\",\n  \"pacote\": \"BASICO\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/viagens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "viagens"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH - Iniciar viagem",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/viagens/{{viagemId}}/iniciar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "viagens",
+                "{{viagemId}}",
+                "iniciar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH - Concluir viagem",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/viagens/6/concluir",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "viagens",
+                "6",
+                "concluir"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH - Cancelar viagem",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/viagens/{{viagemId}}/cancelar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "viagens",
+                "{{viagemId}}",
+                "cancelar"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "🚨 Alertas",
+      "item": [
+        {
+          "name": "GET - Listar todos os alertas",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/alertas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "alertas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Alertas por severidade CRITICA",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/alertas?severidade=CRITICA&status=ABERTO",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "alertas"
+              ],
+              "query": [
+                {
+                  "key": "severidade",
+                  "value": "CRITICA"
+                },
+                {
+                  "key": "status",
+                  "value": "ABERTO"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Buscar alerta por ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/alertas/{{alertaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "alertas",
+                "{{alertaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH - Resolver alerta",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"observacao\": \"Recurso reabastecido via cápsula de suprimentos. Nível normalizado.\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/alertas/{{alertaId}}/resolver",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "alertas",
+                "{{alertaId}}",
+                "resolver"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH - Resolver alertas em lote por tipo",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/alertas/colonias/{{coloniaId}}/resolver-lote?tipoAlerta=RECURSO_CRITICO",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "alertas",
+                "colonias",
+                "{{coloniaId}}",
+                "resolver-lote"
+              ],
+              "query": [
+                {
+                  "key": "tipoAlerta",
+                  "value": "RECURSO_CRITICO"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "POST Usuario",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"fe@teste.com\",\r\n  \"senha\": \"121212\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Login",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"fe@teste.com\",\r\n  \"senha\": \"121212\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - LISTAR",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/logs",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "logs"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - habitantes",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/logs/tabela/habitantes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "logs",
+            "tabela",
+            "habitantes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - Recursos",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/logs/tabela/recursos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "logs",
+            "tabela",
+            "recursos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - Colonias",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/logs/tabela/colonias",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "logs",
+            "tabela",
+            "colonias"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - Tempo",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/logs/periodo?inicio=2026-06-01T00:00:00&fim=2026-06-30T23:59:59",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "logs",
+            "periodo"
+          ],
+          "query": [
+            {
+              "key": "inicio",
+              "value": "2026-06-01T00:00:00"
+            },
+            {
+              "key": "fim",
+              "value": "2026-06-30T23:59:59"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "turistaId",
+      "value": "1"
+    },
+    {
+      "key": "coloniaId",
+      "value": "1"
+    },
+    {
+      "key": "recursoId",
+      "value": "1"
+    },
+    {
+      "key": "habitanteId",
+      "value": "1"
+    },
+    {
+      "key": "treinamentoId",
+      "value": "1"
+    },
+    {
+      "key": "viagemId",
+      "value": "1"
+    },
+    {
+      "key": "alertaId",
+      "value": "1"
+    },
+    {
+      "key": "passageiroId",
+      "value": "1"
+    },
+    {
+      "key": "saudeId",
+      "value": "1"
+    }
+  ]
+}
