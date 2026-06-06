@@ -13,6 +13,16 @@
         {
           "name": "GET - Listar todos os turistas",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -21,13 +31,15 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/turistas",
+              "raw": "https://areslife-java.onrender.com/tourists",
+              "protocol": "https",
               "host": [
-                "{{baseUrl}}"
+                "areslife-java",
+                "onrender",
+                "com"
               ],
               "path": [
-                "api",
-                "turistas"
+                "tourists"
               ]
             }
           },
@@ -36,6 +48,16 @@
         {
           "name": "GET - Buscar turista por ID",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -44,14 +66,16 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/turistas/{{turistaId}}",
+              "raw": "https://areslife-java.onrender.com/tourists/5",
+              "protocol": "https",
               "host": [
-                "{{baseUrl}}"
+                "areslife-java",
+                "onrender",
+                "com"
               ],
               "path": [
-                "api",
-                "turistas",
-                "{{turistaId}}"
+                "tourists",
+                "5"
               ]
             }
           },
@@ -83,18 +107,18 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nome\": \"Vi\",\n  \"idade\": 19,\n  \"pais\": \"Brasil\",\n  \"destino\": \"MARTE\",\n  \"status\": \"EM_TRANSITO\"\n}"
+              "raw": "{\n  \"nome\": \"Fe\",\n  \"idade\": 19,\n  \"pais\": \"Brasil\",\n  \"destino\": \"MARTE\",\n  \"status\": \"EM_TRANSITO\"\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/api/turistas",
-              "protocol": "http",
+              "raw": "https://areslife-java.onrender.com/tourists",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "areslife-java",
+                "onrender",
+                "com"
               ],
-              "port": "8080",
               "path": [
-                "api",
-                "turistas"
+                "tourists"
               ]
             }
           },
@@ -129,13 +153,15 @@
               "raw": "{\n  \"nome\": \"Carlos Andrade\",\n  \"idade\": 34,\n  \"pais\": \"Argentina\",\n  \"destino\": \"LUA\",\n  \"status\": \"AGUARDANDO\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/turistas",
+              "raw": "https://areslife-java.onrender.com/tourists",
+              "protocol": "https",
               "host": [
-                "{{baseUrl}}"
+                "areslife-java",
+                "onrender",
+                "com"
               ],
               "path": [
-                "api",
-                "turistas"
+                "tourists"
               ]
             }
           },
@@ -144,6 +170,16 @@
         {
           "name": "POST - ERRO: destino inválido",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [
               {
@@ -157,16 +193,18 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nome\": \"Teste Erro\",\n  \"idade\": 25,\n  \"pais\": \"Brasil\",\n  \"destino\": \"Jupiter\",\n  \"status\": \"Em treinamento\"\n}"
+              "raw": "{\n  \"nome\": \"Teste Erro\",\n  \"idade\": 25,\n  \"pais\": \"Brasil\",\n  \"destino\": \"Jupiter\",\n  \"status\": \"AGUARDANDO\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/turistas",
+              "raw": "https://areslife-java.onrender.com/tourists",
+              "protocol": "https",
               "host": [
-                "{{baseUrl}}"
+                "areslife-java",
+                "onrender",
+                "com"
               ],
               "path": [
-                "api",
-                "turistas"
+                "tourists"
               ]
             }
           },
@@ -175,6 +213,16 @@
         {
           "name": "POST - ERRO: idade abaixo do mínimo",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [
               {
@@ -188,16 +236,18 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nome\": \"Criança Teste\",\n  \"idade\": 10,\n  \"pais\": \"Brasil\",\n  \"destino\": \"Marte\",\n  \"status\": \"Em treinamento\"\n}"
+              "raw": "{\n  \"nome\": \"Criança Teste\",\n  \"idade\": 10,\n  \"pais\": \"Brasil\",\n  \"destino\": \"MARTE\",\n  \"status\": \"AGUARDANDO\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/turistas",
+              "raw": "https://areslife-java.onrender.com/tourists",
+              "protocol": "https",
               "host": [
-                "{{baseUrl}}"
+                "areslife-java",
+                "onrender",
+                "com"
               ],
               "path": [
-                "api",
-                "turistas"
+                "tourists"
               ]
             }
           },
@@ -369,6 +419,16 @@
         {
           "name": "POST - Criar colônia na Lua",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [
               {
@@ -385,9 +445,12 @@
               "raw": "{\n  \"nome\": \"Lunar Gateway\",\n  \"localizacao\": \"LUA\",\n  \"capacidadeMax\": 20,\n  \"dataFundacao\": \"2030-07-20\",\n  \"descricao\": \"Estação orbital lunar para turismo espacial\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/colonias",
+              "raw": "https://areslife-java.onrender.com/api/colonias",
+              "protocol": "https",
               "host": [
-                "{{baseUrl}}"
+                "areslife-java",
+                "onrender",
+                "com"
               ],
               "path": [
                 "api",
@@ -618,6 +681,16 @@
         {
           "name": "POST - Criar recurso ENERGIA",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [
               {
@@ -631,12 +704,15 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"coloniaId\": 1,\n  \"tipoRecurso\": \"ENERGIA\",\n  \"quantidade\": 3000.00,\n  \"unidade\": \"kWh\",\n  \"nivelCritico\": 300.00,\n  \"nivelMaximo\": 8000.00\n}"
+              "raw": "{\n  \"coloniaId\": 2,\n  \"tipoRecurso\": \"ENERGIA\",\n  \"quantidade\": 3000.00,\n  \"unidade\": \"kWh\",\n  \"nivelCritico\": 300.00,\n  \"nivelMaximo\": 8000.00\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/colonias/{{coloniaId}}/recursos",
+              "raw": "https://areslife-java.onrender.com/api/colonias/{{coloniaId}}/recursos",
+              "protocol": "https",
               "host": [
-                "{{baseUrl}}"
+                "areslife-java",
+                "onrender",
+                "com"
               ],
               "path": [
                 "api",
@@ -964,6 +1040,16 @@
         {
           "name": "POST - Criar turista (habitante)",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZUB0ZXN0ZS5jb20iLCJpYXQiOjE3ODA3MDY3ODMsImV4cCI6MTc4MDc5MzE4M30.V3ejk3OIM9PSVHfD6HAhG28z_Okx969qsNjdyUaCCAI",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [
               {
@@ -980,12 +1066,13 @@
               "raw": "{\n  \"coloniaId\": 1,\n  \"nome\": \"Yuki Tanaka\",\n  \"nacionalidade\": \"Japonesa\",\n  \"dataChegada\": \"2035-07-15\",\n  \"agenciaTurismo\": \"SpaceX Travel\",\n  \"pacoteSelecionado\": \"VIP\"\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/api/habitantes/turistas",
-              "protocol": "http",
+              "raw": "https://areslife-java.onrender.com/api/habitantes/turistas",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "areslife-java",
+                "onrender",
+                "com"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "habitantes",
