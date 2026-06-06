@@ -18,7 +18,7 @@ import java.util.List;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
-@RequestMapping("/api/turistas")
+@RequestMapping("/tourists")
 @RequiredArgsConstructor
 @Tag(name = "Turistas Espaciais", description = "Gerenciamento de turistas espaciais")
 public class TuristaEspacialController {
