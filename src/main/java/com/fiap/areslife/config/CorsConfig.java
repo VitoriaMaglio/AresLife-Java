@@ -20,14 +20,14 @@ public class CorsConfig {
 
 
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-
+        config.setAllowedHeaders(List.of("*"));
 
         config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept"));
 
 
         config.setExposedHeaders(List.of("Authorization"));
 
-        config.setAllowCredentials(true);
+        config.setAllowCredentials(false);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
