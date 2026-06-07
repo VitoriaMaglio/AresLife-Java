@@ -121,7 +121,6 @@ As variáveis são configuradas na aba **Environment** do Web Service, sem expor
 ### Pré-requisitos
 - Java 21+
 - Maven 3.9+ (ou usar o `./mvnw` incluso)
-- Acesso à rede FIAP ou VPN (para o Oracle)
 - Credenciais do banco configuradas (ver seção acima)
 
 ### Passos
