@@ -34,7 +34,7 @@ public class DataLoader {
                 admin.setSenha(passwordEncoder.encode("admin123"));
                 admin.setRole("ADMIN");
                 usuarioRepo.save(admin);
-                System.out.println("✅ Admin criado: admin@areslife.com / admin123");
+                System.out.println(" Admin criado: admin@areslife.com / admin123");
             }
 
             // ── Seed turistas iniciais
