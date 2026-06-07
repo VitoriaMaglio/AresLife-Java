@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
         );
     }
 
-    // ✅ Captura BadCredentialsException e retorna 401 em vez de 500
+    // Captura BadCredentialsException e retorna 401 em vez de 500
     @ExceptionHandler({BadCredentialsException.class, AuthenticationException.class})
     public ResponseEntity<ErrorResponse> handleBadCredentials(Exception ex, HttpServletRequest req) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
