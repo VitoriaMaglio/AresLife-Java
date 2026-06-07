@@ -6,12 +6,13 @@ API REST para gerenciamento de colônias espaciais em Marte e na Lua, desenvolvi
 
 ## 🔗 Links do Projeto
 
-| | Link |
-|--|------|
-| 🌐 **Deploy (API pública)** | https://areslife-java.onrender.com |
+|                               | Link |
+|-------------------------------|------|
+| 🌐 **Deploy (API pública)**   | https://areslife-java.onrender.com |
 | 📖 **Swagger / Documentação** | https://areslife-java.onrender.com/swagger-ui.html |
-| 💻 **Repositório GitHub** | https://github.com/VitoriaMaglio/AresLife-Java |
-| 🎥 **Vídeo de Apresentação** | *(adicionar link após gravação)* |
+| 💻 **Repositório GitHub**     | https://github.com/VitoriaMaglio/AresLife-Java |
+| 🎥 **Vídeo API**              | *https://youtu.be/47iFv6tHRwQ* |
+| 🎥 **Vídeo PITCH**            | *https://youtu.be/yQKSAJM5Xik* |
 
 ---
 
@@ -393,4 +394,4 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 |---------|-----------|
 | `AresLife API.postman_collection.json` | Coleção completa do Postman para testar todos os endpoints |
 | `Dockerfile` | Configuração Docker para deploy |
-| `schema.sql` *(no enunciado)* | Script SQL para criação das tabelas no Oracle |
+
