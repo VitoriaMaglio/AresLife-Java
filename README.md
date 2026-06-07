@@ -378,10 +378,13 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 ## 👥 Integrantes
 
-| Nome | RM |
-|------|----|
-| Vitoria Maglio | RM563509 |
-
+| Nome                     | RM       |
+|--------------------------|----------|
+| Vitoria Maglio           | RM563509 |
+| Felipe Maglio            | RM563512 |
+| Mateus Granja dos Santos | RM564930 |
+| Mariana Magalhães        | RM561786 |
+| João Pedro Bitencourt    | RM564339 |
 ---
 
 ## 📁 Arquivos Extras
